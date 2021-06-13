@@ -1,0 +1,584 @@
+<!doctype html>
+<html class="fixed">
+	<head>
+
+		<!-- Basic -->
+		<meta charset="UTF-8">
+
+		<title>Daily Air condition</title>
+		<meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
+		<meta name="author" content="JSOFT.net">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" href="../assets/vendor/magnific-popup/magnific-popup.css" />
+		<link rel="stylesheet" href="../assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
+
+		<!-- Specific Page Vendor CSS -->
+		<link rel="stylesheet" href="../assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+		<link rel="stylesheet" href="../assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css" />
+		<link rel="stylesheet" href="../assets/vendor/morris/morris.css" />
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="../assets/stylesheets/theme.css" />
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="../assets/stylesheets/skins/default.css" />
+
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="../assets/stylesheets/theme-custom.css">
+
+		<!-- Head Libs -->
+		<script src="../assets/vendor/modernizr/modernizr.js"></script>
+
+		<!--
+		<script>
+				function getLocation() {
+			  if (navigator.geolocation) { // GPS를 지원하면
+				navigator.geolocation.getCurrentPosition(function(position) {
+				  alert(position.coords.latitude + ' ' + position.coords.longitude);
+				}, function(error) {
+				  console.error(error);
+				}, {
+				  enableHighAccuracy: false,
+				  maximumAge: 0,
+				  timeout: Infinity
+				});
+			  } else {
+				alert('GPS를 지원하지 않습니다');
+			  }
+			}
+			getLocation();
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRHs1n9sW05pBxY2FFdRlAljm2orJbXXg&language=en&callback=initMap" async="" defer=""></script>
+
+		-->
+		<meta name="viewport" content="initial-scale=1.0">
+		<meta charset="utf-8">
+		 <script>
+				  function initMap() {
+				var myLatLng = {lat: 32.882626, lng: -117.234689};
+
+				var map = new google.maps.Map(document.getElementById('map'), {
+				  zoom: 15,
+				  center: myLatLng
+				});
+
+				var marker = new google.maps.Marker({
+			  position: myLatLng,
+			  map: map,
+			  title: 'Hello World!'
+				});
+			  }
+		</script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRHs1n9sW05pBxY2FFdRlAljm2orJbXXg&language=en&callback=initMap">
+		</script>
+
+		<!--차트-->
+		
+		    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+			  google.charts.load('current', {'packages':['corechart']});
+			  google.charts.setOnLoadCallback(drawChart);
+
+			  function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+				  ['Date', 'CO', 'NO2'],
+				   ['2004',  1000, 400],
+				   ['2004',  100, 40]
+				  //['<?php echo $air_date?>',  <?php echo $AQI_PM?>, <?php echo $AQI_NO2?>],
+				]);
+
+			   var options = {
+				  title: 'Company Performance',
+				  curveType: 'function',
+				  legend: { position: 'bottom' }
+				};
+
+				var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+				chart.draw(data, options);
+			  }
+			</script>
+	
+
+
+	</head>
+	<body onload="initialize()">
+		<section class="body">
+
+			<!-- start: header -->
+			<header class="header">
+				<div class="logo-container">
+					<form action ="../da" method = "post" name = "j">
+					<div onclick ="document.forms['j'].submit();" style ="cursor : pointer;">
+					<a class="logo">
+						<img src="../assets/images/longlogo.png" height="70" alt="JSOFT Admin" />
+					</a>
+					</div>
+					</form>
+					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+						<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+					</div>
+				</div>
+
+				<!-- start: search & user box -->
+				<div class="header-right">
+
+					<form action="pages-search-results.html" class="search nav-form">
+						<div class="input-group input-search">
+							<input type="text" class="form-control" name="q" id="q" placeholder="Search...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+							</span>
+						</div>
+					</form>
+
+					<span class="separator"></span>
+
+					<div id="userbox" class="userbox">
+						<a href="#" data-toggle="dropdown">
+							<figure class="profile-picture">
+								<img src="../assets/images/!logged-user.jpg" alt="Joey" class="img-circle" data-lock-picture="../assets/images/!logged-user.jpg" />
+							</figure>
+							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@JSOFT.com">
+								<span class="name"><?php if(isset($_SESSION['userName']))
+														{
+															echo $_SESSION["userName"];
+														}
+														else {
+															echo "<script>alert('잘못된 연결 입니다.'); history.back();</script>";
+														}
+
+														?></span>
+							</div>
+						</a>
+					</div>
+				</div>
+				<!-- end: search & user box -->
+			</header>
+			<!-- end: header -->
+
+			<div class="inner-wrapper">
+				<!-- start: sidebar -->
+				<aside id="sidebar-left" class="sidebar-left">
+
+					<div class="sidebar-header">
+						<div class="sidebar-title">
+						MENU
+						</div>
+						<div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+						</div>
+					</div>
+
+					<div class="nano">
+						<div class="nano-content">
+							<nav id="menu" class="nav-main" role="navigation">
+								<ul class="nav nav-main">
+									<li class="nav-active">
+									<form action ="../da" method = "post" name = "r">
+									<div onclick ="document.forms['r'].submit();" style ="cursor : pointer;">
+											<Br>&nbsp;&nbsp;&nbsp;<i class="fa fa-home" aria-hidden="true"></i>
+											<span>Home</span>
+									</div>
+									</form>
+									</li>
+
+									<li class="nav-active">
+										<a href="../da/temp">
+											<span>Temperature</span>
+										</a>
+									</li>
+
+									<li class="nav-active">
+										<a href="../da/hr">
+											<span>Heart Rate</span>
+										</a>
+									</li>
+
+									<li class="nav-active">
+										<a href="../da/air">
+											<span>Air Quality</span>
+										</a>
+									</li>
+
+									<li class="nav-active">
+									<form action ="../da/profile" method = "post" name = "prof">
+									<div onclick ="document.forms['prof'].submit();" style ="cursor : pointer;">
+											<span class="pull-right label label-primary"></span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Profile</span>
+									</form>
+									</li>
+
+									<li class="nav-active">
+									<form action ="../da/signout" method = "post" name = "r">
+									<div onclick ="document.forms['r'].submit();" style ="cursor : pointer;">
+											<span class="pull-right label label-primary"></span>
+											<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sign Out</span>
+									</div>
+									</form>
+									</li>
+
+
+								</ul>
+						</div>
+					</div>
+				</aside>
+				<!-- end: sidebar -->
+
+
+			<!-- 위에 -->
+				<section role="main" class="content-body">
+					<header class="page-header">
+						<h2>Air condition</h2>
+
+						<div class="right-wrapper pull-right">
+							<ol class="breadcrumbs">
+								<li>
+									<form action ="../da" method = "post" name = "gha">
+									<div onclick ="document.forms['gha'].submit();" style ="cursor : pointer;">
+										<a href="../da">
+											<i class="fa fa-home"></i>
+										</a>
+									</div>
+									</form>
+								</li>
+								<li><span>Air condition</span></li>
+							</ol>
+
+							<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+						</div>
+					</header>
+
+
+				<!-- 콘텐츠 -->
+
+						<div class="column">
+						<div class="col-md-6">
+							<img src = "../assets/images/realtimeair.png" width="400">
+							<br><br>
+
+								<section class="panel panel-featured-left panel-featured-quartenary">
+										 <div class="panel-body">
+											 <div class="widget-summary">
+												<p style="text-align: center;">
+												<div class="widget-summary-col">
+												   <div class="summary">
+												   <div  style = " float : left">
+													<img src = "../assets/images/PM.png" width = "100" >
+													</div>
+													  <div class="info" style =" float : left">
+														<h4 class="title"></h4><strong class="amount">33</strong>
+													  </div>
+												   </div>
+												   <div class="summary-footer">
+												   </div>
+												 </P>
+												</div>
+											 </div>
+										</div>
+								</section>
+
+								<section class="panel panel-featured-left panel-featured-quartenary">
+										  <div class="panel-body">
+											 <div class="widget-summary">
+												<p style="text-align: center;">
+												<div class="widget-summary-col">
+												   <div class="summary">
+												   <div  style = " float : left">
+													<img src = "../assets/images/CO.png" width = "100" >
+													</div>
+													  <div class="info" style =" float : left">
+														<h4 class="title"></h4><strong class="amount">77</strong>
+													  </div>
+												   </div>
+												   <div class="summary-footer">
+												   </div>
+												 </P>
+												</div>
+											 </div>
+									   </div>
+								</section>
+
+								<section class="panel panel-featured-left panel-featured-quartenary">
+										  <div class="panel-body">
+											 <div class="widget-summary">
+												<p style="text-align: center;">
+												<div class="widget-summary-col">
+												   <div class="summary">
+												   <div  style = " float : left">
+													<img src = "../assets/images/SO2.png" width = "100" >
+													</div>
+													  <div class="info" style =" float : left">
+														<h4 class="title"></h4><strong class="amount">177</strong>
+													  </div>
+												   </div>
+												   <div class="summary-footer">
+												   </div>
+												 </P>
+												</div>
+											 </div>
+									   </div>
+								</section>
+						</div>
+						</div>
+
+
+						<br> <br> <br>
+						<div class="row">
+						<div class="col-md-6">
+
+							<section class="panel panel-featured-left panel-featured-quartenary">
+									  <div class="panel-body">
+										 <div class="widget-summary">
+											<p style="text-align: center;">
+											<div class="widget-summary-col">
+											   <div class="summary">
+											   <div  style = " float : left">
+												<img src = "../assets/images/NO2.png" width = "100" >
+												</div>
+												  <div class="info" style =" float : left">
+													<h4 class="title"></h4><strong class="amount">256</strong>
+												  </div>
+											   </div>
+											   <div class="summary-footer">
+											   </div>
+											 </P>
+											</div>
+										 </div>
+								   </div>
+							</section>
+
+							<section class="panel panel-featured-left panel-featured-quartenary">
+									  <div class="panel-body">
+										 <div class="widget-summary">
+											<p style="text-align: center;">
+											<div class="widget-summary-col">
+											   <div class="summary">
+											   <div  style = " float : left">
+												<img src = "../assets/images/O3.png" width = "100" >
+												</div>
+												  <div class="info" style =" float : left">
+													<h4 class="title"></h4><strong class="amount">399</strong>
+												  </div>
+											   </div>
+											   <div class="summary-footer">
+											   </div>
+											 </P>
+											</div>
+										 </div>
+								   </div>
+							</section>
+						</div>
+						</div>
+
+
+
+
+						<!--이거 히스토리-->
+						<hr>
+						<img src = "../assets/images/historyair.png" width="400">
+						<form id="frm" action="action.jsp">
+							<div>
+							<p style="text-align: center;">
+								Date:
+								<input type="date" id="userdate" name="userdate"
+											value="2019-02-07">
+								<input type="submit" value="SERCH">
+							</p>
+							</div>
+						</form>
+
+
+												<!--구글맵이다-->
+						<div class="row">
+						<center>
+						<div id="map" style="width:500px; height:300px;" align = "center"></div>
+						</center>
+						</div>
+
+
+						<div class="row">
+						<div class="col-md-6">
+						<table style =text-align:center; border= 1 width ="550" height ="350" >
+							<tr>
+								<td> <strong>Date </strong> </td>
+								<td> <strong>PM </strong> </td>
+								<td> <strong>CO </strong> </td>
+								<td> <strong>SO2 </strong> </td>
+								<td> <strong>NO2 </strong> </td>
+								<td> <strong>O3 </strong> </td>
+							</tr>
+							<tr>
+								<td>06/02/2019</td>
+								<td>109</td>
+								<td>88</td>
+								<td>109</td>
+								<td>88</td>
+								<td>109</td>
+							</tr>
+							<tr>
+								<td>05/02/2019</td>
+								<td>108</td>
+								<td>89</td>
+								<td>109</td>
+								<td>88</td>
+								<td>109</td>
+							</tr>
+							<tr>
+								<td>04/02/2019</td>
+								<td>112</td>
+								<td>89</td>
+								<td>109</td>
+								<td>88</td>
+								<td>109</td>
+							</tr>
+							<tr>
+								<td>06/02/2019</td>
+								<td>109</td>
+								<td>88</td>
+								<td>109</td>
+								<td>88</td>
+								<td>109</td>
+							</tr>
+							<tr>
+								<td>05/02/2019</td>
+								<td>108</td>
+								<td>89</td>
+								<td>109</td>
+								<td>88</td>
+								<td>109</td>
+							</tr>
+							<tr>
+								<td>04/02/2019</td>
+								<td>112</td>
+								<td>89</td>
+								<td>109</td>
+								<td>88</td>
+								<td>109</td>
+							</tr>
+						</table>
+						</div>
+						</div>
+
+
+						<div class="row">
+						<div class="col-md-6">
+								<div class="panel-body">
+
+								<tr chart> 
+								 <div id="curve_chart" style="width: 500px; height: 400px"></div>
+
+
+
+
+									
+									<div class="chart chart-md" id="flotDashBasic"></div>
+									<script>
+
+										var flotDashBasicData = [{
+											data: [
+												[0, 100],
+												[1, 109],
+												[2, 103],
+												[3, 108],
+												[4, 107],
+												[5, 103],
+												[6, 108],
+												[7, 109],
+												[8, 103],
+												[9, 108],
+												[10, 108]
+											],
+											label: "PM",
+											color: "#e74424"
+										}, {
+											data: [
+												[0, 85],
+												[1, 89],
+												[2, 84],
+												[3, 81],
+												[4, 85],
+												[5, 93],
+												[6, 92],
+												[7, 88],
+												[8, 87],
+												[9, 93],
+												[10, 93]
+											],
+											label: "CO",
+											color: "#4d9edd"
+										},];
+
+										// See: ../assets/javascripts/dashboard/examples.dashboard.js for more settings.
+
+									</script>
+								</div>
+								</div>
+								</div>
+
+
+				</section>
+
+					<!-- start: page -->
+
+
+		<!-- Vendor -->
+		<script src="../assets/vendor/jquery/jquery.js"></script>
+		<script src="../assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+		<script src="../assets/vendor/nanoscroller/nanoscroller.js"></script>
+		<script src="../assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="../assets/vendor/magnific-popup/magnific-popup.js"></script>
+		<script src="../assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+		<!-- Specific Page Vendor -->
+		<script src="../assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+		<script src="../assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
+		<script src="../assets/vendor/jquery-appear/jquery.appear.js"></script>
+		<script src="../assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+		<script src="../assets/vendor/jquery-easypiechart/jquery.easypiechart.js"></script>
+		<script src="../assets/vendor/flot/jquery.flot.js"></script>
+		<script src="../assets/vendor/flot-tooltip/jquery.flot.tooltip.js"></script>
+		<script src="../assets/vendor/flot/jquery.flot.pie.js"></script>
+		<script src="../assets/vendor/flot/jquery.flot.categories.js"></script>
+		<script src="../assets/vendor/flot/jquery.flot.resize.js"></script>
+		<script src="../assets/vendor/jquery-sparkline/jquery.sparkline.js"></script>
+		<script src="../assets/vendor/raphael/raphael.js"></script>
+		<script src="../assets/vendor/morris/morris.js"></script>
+		<script src="../assets/vendor/gauge/gauge.js"></script>
+		<script src="../assets/vendor/snap-svg/snap.svg.js"></script>
+		<script src="../assets/vendor/liquid-meter/liquid.meter.js"></script>
+		<script src="../assets/vendor/jqvmap/jquery.vmap.js"></script>
+		<script src="../assets/vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
+		<script src="../assets/vendor/jqvmap/maps/jquery.vmap.world.js"></script>
+		<script src="../assets/vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
+		<script src="../assets/vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
+		<script src="../assets/vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
+		<script src="../assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
+		<script src="../assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
+		<script src="../assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+
+		<!-- Theme Base, Components and Settings -->
+		<script src="../assets/javascripts/theme.js"></script>
+
+		<!-- Theme Custom -->
+		<script src="../assets/javascripts/theme.custom.js"></script>
+
+		<!-- Theme Initialization Files -->
+		<script src="../assets/javascripts/theme.init.js"></script>
+
+
+		<!-- Examples -->
+		<script src="../assets/javascripts/dashboard/examples.dashboard.js"></script>
+	</body>
+</html>
